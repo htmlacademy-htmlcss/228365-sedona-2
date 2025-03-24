@@ -19,5 +19,13 @@
   "css.lint.unknownVendorSpecificProperties": "warning",
   "css.lint.zeroUnits": "error",
   "html.format.endWithNewline": true,
-  "html.format.indentInnerHtml": true
+  "html.format.indentInnerHtml": true,
+  "cSpell.words": [
+    "Ildar",
+    "Гитхабе",
+    "пулреквест",
+    "Седона",
+    "скопируется",
+    "форк"
+  ]
 }
