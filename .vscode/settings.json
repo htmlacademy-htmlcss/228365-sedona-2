@@ -3,7 +3,7 @@
   "editor.formatOnSave": true, // Включение форматирования при сохранении
   "editor.detectIndentation": false, // Отключение автоматического определения отступов. Чтобы VSCode строго следовал .editorconfig
   "[javascript]": {
-    "editor.defaultFormatter": "vscode.javascript"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
