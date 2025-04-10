@@ -160,7 +160,7 @@ body {
 .button {
   display: inline-grid;
   place-content: center;
-  padding: 5px 8px;
+  padding: 8px 8px;
   appearance: none;
   font-weight: 700;
   text-align: center;
@@ -258,15 +258,20 @@ body {
   z-index: 1;
 }
 
+.header__navigation {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.header__button {
+  padding-inline: 16px;
+  min-width: 160px;
+}
+
 /* navigation */
 .navigation {
   display: flex;
   gap: 16px;
-}
-
-.header__navigation {
-  width: 100%;
-  justify-content: space-between;
 }
 
 .navigation__list {
@@ -289,12 +294,14 @@ body {
   line-height: 1;
 }
 
+/* main */
 .main {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
+/* sections */
 .section {
   display: flex;
   flex-direction: column;
@@ -315,7 +322,13 @@ body {
   background-color: var(--color-primary-30);
 }
 
-/* inner hero */
+/* search */
+.search__button,
+.subscribe__button {
+  padding-inline: 50px;
+}
+
+/* inner hero — catalog page */
 .inner-hero {
   padding: 70px;
   padding-top: 35px;
