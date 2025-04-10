@@ -22,16 +22,20 @@
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
   "css.format.spaceAroundSelectorSeparator": true,
+  "css.format.newlineBetweenRules": true, // Одна пустая строка между CSS-правилами
+  "css.format.preserveNewLines": true, // Запрещает множественные пустые строки
+  "css.format.maxPreserveNewLines": 2, // Максимум 1 пустая строка между блоками
   "css.lint.compatibleVendorPrefixes": "warning",
   "css.lint.duplicateProperties": "warning",
   "css.lint.idSelector": "error",
   "css.lint.important": "error",
   "css.lint.importStatement": "warning",
-  "css.lint.universalSelector": "warning",
+  "css.lint.universalSelector": "ignore",
   "css.lint.unknownVendorSpecificProperties": "warning",
   "css.lint.zeroUnits": "error",
   "html.format.endWithNewline": true,
   "html.format.indentInnerHtml": true,
+  "html.format.maxPreserveNewLines": 1, // Максимум 1 пустая строка между блоками
   "cSpell.words": [
     "Amara",
     "Ildar",
