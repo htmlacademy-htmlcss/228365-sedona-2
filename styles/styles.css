@@ -322,6 +322,10 @@ body {
   background-color: var(--color-primary-30);
 }
 
+.service__description {
+  margin-bottom: 44px;
+}
+
 .advantages {
   padding-top: 69px;
 }
@@ -331,6 +335,10 @@ body {
 }
 
 /* search */
+.search {
+  padding-block: 96px;
+}
+
 .search__button,
 .subscribe__button {
   padding-inline: 50px;
@@ -376,6 +384,8 @@ body {
 /* subscribe */
 .subscribe {
   margin-top: auto;
+  padding-block: 96px 104px;
+  contain-intrinsic-size: 100% 414px;
 }
 
 .subscribe--bg {
