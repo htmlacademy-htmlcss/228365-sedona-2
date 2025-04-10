@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Седона | О нас</title>
     <meta name="description" content="Выбрать гостиницу в Седоне">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   </head>
 
   <body>
@@ -14,7 +16,7 @@
 
       <!-- header -->
       <header class="header">
-        <a class="header__logo-link" href="index.html" title="Перейти на главную страницу">
+        <a class="header__logo" href="index.html" title="Перейти на главную страницу">
           <img src="images/logo.svg" width="140" height="70" alt="Логотип города Седона">
         </a>
         <nav class="header__navigation navigation">
@@ -42,7 +44,7 @@
               </a>
             </li>
             <li class="navigation__item">
-              <a class="header__button button" href="#">Хочу сюда!</a>
+              <a class="header__button button button--secondary button--small" href="#">Хочу сюда!</a>
             </li>
           </ul>
         </nav>
@@ -50,14 +52,15 @@
 
       <!-- main -->
       <main class="main">
+
         <!-- subscribe -->
-        <section class="subscribe section">
-          <h2 class="title">Подпишитесь на рассылку</h2>
+        <section class="subscribe section subscribe--bg">
+          <h2 class="title title--h2">Подпишитесь на рассылку</h2>
           <p class="description">Только полезная информация и никакого спама, честное бойскаутское!</p>
           <form class="subscribe__form" action="https://echo.htmlacademy.ru/" method="post">
             <label class="subscribe__label visually-hidden" for="email">Введите вашу электронную почту</label>
             <input class="subscribe__input input" type="email" name="email" id="email" placeholder="Ваш e-mail" autocomplete="email" required>
-            <button class="subscribe__button button" type="submit">Подписаться</button>
+            <button class="subscribe__button button button--primary button--big" type="submit">Подписаться</button>
           </form>
         </section>
       </main>
