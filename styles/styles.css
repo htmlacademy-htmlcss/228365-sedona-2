@@ -1,0 +1,394 @@
+@font-face {
+  font-family: "PT Sans";
+  src: url("../fonts/ptsans-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PT Sans";
+  src: url("../fonts/ptsans-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* fonts */
+  --font-family: "PT Sans", system-ui, "Arial", sans-serif;
+
+  /* colors */
+  --color-light: #ffffff;
+  --color-light-secondary: hsl(from var(--color-light) h s 95%);
+  --color-light-tertiary: hsl(from var(--color-light) h s 90%);
+  --color-light-60: hsl(from var(--color-light) h s l / 0.6);
+  --color-light-30: hsl(from var(--color-light) h s l / 0.3);
+  --color-light-10: hsl(from var(--color-light) h s l / 0.1);
+
+  --color-dark: #000000;
+  --color-dark-secondary: hsl(from var(--color-dark) h s 20%);
+  --color-dark-60: hsl(from var(--color-dark) h s l / 0.6);
+  --color-dark-40: hsl(from var(--color-dark) h s l / 0.4);
+  --color-dark-30: hsl(from var(--color-dark) h s l / 0.3);
+  --color-dark-25: hsl(from var(--color-dark) h s l / 0.25);
+  --color-dark-20: hsl(from var(--color-dark) h s l / 0.2);
+  --color-dark-15: hsl(from var(--color-dark) h s l / 0.15);
+
+  --color-primary: #82b3d3;
+  --color-primary-darker: hsl(from var(--color-primary) h s 58%);
+  --color-primary-30: hsl(from var(--color-primary) h s l / 0.3);
+  --color-primary-20: hsl(from var(--color-primary) h s l / 0.2);
+  --color-primary-12: hsl(from var(--color-primary) h s l / 0.12);
+
+  --color-secondary: #756157;
+  --color-secondary-darker: hsl(from var(--color-secondary) h s 33%);
+  --color-secondary-30: hsl(from var(--color-secondary) h s l / 0.3);
+
+  --color-tertiary: #3f5e72;
+
+  --color-accent: #7db54f;
+  --color-accent-darker: hsl(from var(--color-accent) h s 44%);
+
+  --color-accent-secondary: #ff5757;
+
+  /* shadows */
+  --shadow-y4-blur10: 0 4px 10px 0 var(--color-dark-25);
+  --shadow-y7-blur15: 0 7px 15px 0 var(--color-dark-40);
+  --shadow-y15-blur30: 0 15px 30px 0 var(--color-dark-30);
+  --shadow-y25-blur50: 0 25px 50px 0 var(--color-dark-15);
+  --shadow-blur15: 0 0 15px 0 var(--color-dark-20);
+
+  /* Borders from shadow */
+  --border-base-1: inset 0 0 0 1px;
+  --border-1: 0 0 0 1px;
+  --border-base-2: inset 0 0 0 2px;
+  --border-2: 0 0 0 2px;
+
+  /* border radius */
+  --border-radius-circle: 5em;
+  --border-radius-4: 4px;
+}
+
+/* Global styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.visually-hidden {
+  position: absolute;
+  transform: scale(0);
+}
+
+/* Убираю внешние отступы у которых есть атрибут class */
+:where(h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ul,
+  ol,
+  dl):where([class]) {
+  margin-block: 0;
+}
+
+/* Убираю внутренние отступы слева и стандартный маркер, у которых есть атрибут с классом list */
+:where(ul, ol):where([class*="list"],
+  .breadcrumbs,
+  .view,
+  .pagination) {
+  padding-left: 0;
+  list-style: none;
+}
+
+/* Назначаю наследование свойства шрифта для полей ввода */
+:where(input,
+  textarea,
+  select,
+  button):where([class]) {
+  font: inherit;
+}
+
+/* Делаю изображения адаптивными */
+img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Убираю выделение у изображений */
+img::selection,
+svg::selection {
+  background: transparent;
+}
+
+/* Делаю кастомное выделение текста */
+::selection {
+  background: var(--color-primary-darker);
+  color: var(--color-light);
+  text-shadow: none;
+}
+
+/* Убираю стандартное подчеркивание, только у тех которые с классом */
+:where(a[class]) {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Стилизую ссылки без класса */
+a:not([class]) {
+  text-decoration: underline;
+  color: var(--color-primary-darker);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 1.167;
+  color: var(--color-dark-secondary);
+  background-color: var(--color-light-secondary);
+}
+
+/* buttons */
+.button {
+  display: inline-grid;
+  place-content: center;
+  padding: 5px 8px;
+  appearance: none;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-light);
+  background-color: transparent;
+  border: none;
+  border-radius: var(--border-radius-4);
+  user-select: none;
+  cursor: pointer;
+}
+
+.button--primary {
+  background-color: var(--color-primary);
+}
+
+.button--secondary {
+  background-color: var(--color-secondary);
+}
+
+.button--big {
+  font-size: 20px;
+  line-height: 1.8;
+}
+
+.button--small {
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+[class*="--current"] {
+  pointer-events: none;
+  cursor: default;
+}
+
+.active {
+  color: var(--color-light);
+  background-color: var(--color-accent);
+  transition: background-color 0.3s;
+}
+
+/* main text */
+.title {
+  font-weight: 700;
+  color: var(--color-dark);
+  text-wrap: balance;
+}
+
+.title--h1 {
+  font-size: 60px;
+  line-height: 1.3;
+}
+
+.title--h2 {
+  font-size: 30px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.title--h3 {
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+.description {
+  max-width: 656px;
+  margin-bottom: 34px;
+  font-size: 22px;
+  line-height: 1.82;
+}
+
+/* page wrapper */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  inline-size: 1200px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: var(--color-light);
+  box-shadow: var(--shadow-blur15);
+}
+
+/* header */
+.header {
+  display: flex;
+  padding-inline: 70px;
+  column-gap: 30px;
+}
+
+.header__logo {
+  display: flex;
+  align-items: start;
+  flex-shrink: 0;
+  margin-bottom: -6px;
+  z-index: 1;
+}
+
+/* navigation */
+.navigation {
+  display: flex;
+  gap: 16px;
+}
+
+.header__navigation {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.navigation__list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.navigation__link {
+  display: flex;
+  padding: 20px 16px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.navigation__favorite-count {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px 0;
+  padding-block: 64px 0;
+  content-visibility: auto;
+}
+
+.hero {
+  min-height: 300px;
+  padding-block: 51px 82px;
+  background-image: url("../images/mask-shape.svg"), url("../images/hero-bg-image.jpeg");
+  background-size: 100% auto, cover;
+  background-position: bottom, center;
+  background-repeat: no-repeat;
+  background-color: var(--color-primary-30);
+}
+
+/* inner hero */
+.inner-hero {
+  padding: 70px;
+  padding-top: 35px;
+  color: var(--color-light);
+  background-image: url("../images/filter-bg-image.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: var(--color-tertiary);
+}
+
+.inner-hero__title {
+  color: var(--color-light);
+}
+
+/* breadcrumbs */
+.breadcrumbs__link {
+  font-size: 1rem;
+  line-height: 1.32;
+}
+
+/* catalog */
+.catalog {
+  padding-inline: 70px;
+  padding-block: 50px 60px;
+}
+
+.catalog__title {
+  text-transform: capitalize;
+}
+
+.catalog__rating {
+  color: currentColor;
+  font-weight: inherit;
+  background-color: var(--color-light-secondary);
+}
+
+/* subscribe */
+.subscribe {
+  margin-top: auto;
+}
+
+.subscribe--bg {
+  background-image: url("../images/subscribe-bg-image.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: var(--color-tertiary);
+}
+
+.subscribe--bg,
+.subscribe--bg .title--h2 {
+  color: var(--color-light);
+}
+
+/* pagination */
+.pagination__button--current {
+  color: var(--color-dark);
+  background-color: var(--color-light-secondary);
+}
+
+.pagination__button[aria-hidden="true"] {
+  color: var(--color-dark);
+}
+
+/* footer */
+.footer {
+  display: flex;
+  padding: 40px 70px;
+  gap: 20px
+}
+
+.footer__phone {
+  font-size: 40px;
+  line-height: 1;
+  font-style: normal;
+  color: var(--color-dark);
+}
