@@ -229,7 +229,7 @@ body {
   max-width: 656px;
   margin-bottom: 34px;
   font-size: 22px;
-  line-height: 1.82;
+  line-height: 1.18;
 }
 
 /* page wrapper */
@@ -320,6 +320,14 @@ body {
   background-position: bottom, center;
   background-repeat: no-repeat;
   background-color: var(--color-primary-30);
+}
+
+.advantages {
+  padding-top: 69px;
+}
+
+.advantages__description {
+  margin-bottom: 70px;
 }
 
 /* search */
