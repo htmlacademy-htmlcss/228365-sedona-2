@@ -554,10 +554,66 @@ body {
   gap: 20px
 }
 
+.social {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.social__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 6px;
+  min-width: 47px;
+  height: 40px;
+}
+
+.social__icon::before {
+  content: "";
+  min-width: 25px;
+  height: 24px;
+  background-color: var(--color-primary);
+  mask-image: var(--icon-social);
+  mask-size: auto;
+  mask-position: center;
+  mask-repeat: no-repeat;
+}
+
+.social__icon--vk {
+  --icon-social: url("../images/social-icon-vk.svg");
+}
+
+.social__icon--telegram {
+  --icon-social: url("../images/social-icon-telegram.svg");
+}
+
+.social__icon--youtube {
+  --icon-social: url("../images/social-icon-youtube.svg");
+}
+
 .footer__phone {
   display: flex;
   font-size: 40px;
   line-height: 1;
   font-style: normal;
   color: var(--color-dark);
+}
+
+.footer__developer-link {
+  display: flex;
+  min-width: 115px;
+  height: 33px;
+  flex-shrink: 0;
+}
+
+.footer__developer-link::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-dark);
+  mask-image: url("../images/dev-logo.svg");
+  mask-size: auto;
+  mask-position: center;
+  mask-repeat: no-repeat;
 }
