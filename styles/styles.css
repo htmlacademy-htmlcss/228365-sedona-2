@@ -240,6 +240,15 @@ body {
   transition: background-color 0.3s;
 }
 
+.active:hover,
+.active:focus-visible {
+  background-color: var(--color-accent-darker);
+}
+
+.active:active {
+  background-color: var(--color-accent);
+}
+
 /* main text */
 .title {
   font-weight: 700;
