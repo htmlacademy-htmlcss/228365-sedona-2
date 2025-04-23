@@ -304,6 +304,12 @@ body {
   color: var(--color-dark-60);
 }
 
+.input:disabled {
+  background-color: var(--color-light-secondary);
+  color: var(--color-dark-60);
+  cursor: not-allowed;
+}
+
 /* page wrapper */
 .page-wrapper {
   display: flex;
@@ -893,14 +899,6 @@ body {
   contain-intrinsic-size: 100% 414px;
 }
 
-.subscribe__form {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  max-width: 684px;
-  width: 100%;
-  margin: 0 auto;
-}
-
 .subscribe--bg {
   background-image: url("../images/subscribe-bg-image.jpeg");
   background-size: cover;
@@ -913,8 +911,16 @@ body {
   color: var(--color-light);
 }
 
-/* subscribe form */
-.input[type="email"] {
+/* subscribe form ————————————————————— */
+.subscribe__form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  max-width: 684px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.subscribe__input {
   padding: 14px 20px;
   border-radius: var(--border-radius-4) 0 0 var(--border-radius-4);
 }
@@ -957,6 +963,16 @@ body {
   mask-size: auto;
   mask-position: center;
   mask-repeat: no-repeat;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.social__icon:hover::before,
+.social__icon:focus-visible::before {
+  background-color: var(--color-primary-darker);
+}
+
+.social__icon:active::before {
+  background-color: var(--color-primary-30);
 }
 
 .social__icon--vk {
@@ -977,6 +993,16 @@ body {
   line-height: 1;
   font-style: normal;
   color: var(--color-dark);
+  transition: color 0.3s ease-in-out;
+}
+
+.footer__phone:hover,
+.footer__phone:focus-visible {
+  color: var(--color-secondary-darker);
+}
+
+.footer__phone:active {
+  color: var(--color-secondary-30);
 }
 
 .footer__developer-link {
@@ -995,6 +1021,16 @@ body {
   mask-size: auto;
   mask-position: center;
   mask-repeat: no-repeat;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.footer__developer-link:hover::before,
+.footer__developer-link:focus-visible::before {
+  background-color: var(--color-secondary-darker);
+}
+
+.footer__developer-link:active::before {
+  background-color: var(--color-secondary-30);
 }
 
 /* progress */
