@@ -827,12 +827,12 @@ body {
   border-radius: var(--border-radius-4);
   appearance: none;
   cursor: pointer;
-  transition: box-shadow 0.3s;
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 .sort__select:hover:not(:disabled),
 .sort__select:focus-visible:not(:disabled) {
-  box-shadow: var(--border-base-2) var(--color-primary);
+  box-shadow: var(--border-base-2) var(--color-primary-darker);
   outline: none;
 }
 
@@ -844,6 +844,69 @@ body {
 
 .sort:has(.sort__select:disabled)::after {
   opacity: 0.3;
+}
+
+/* view */
+.view {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.view__button {
+  min-width: 48px;
+  aspect-ratio: 1;
+  box-shadow: var(--border-base-2) var(--color-light-tertiary);
+  vertical-align: middle;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.view__button::before {
+  width: 16px;
+  height: 14px;
+  background-color: var(--color-dark);
+  mask-image: var(--icon-view);
+  mask-size: auto;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  transition: background-color 0.3s ease-in-out;
+  content: "";
+}
+
+.view__button--grid {
+  --icon-view: url("../images/view-grid-icon.svg");
+}
+
+.view__button--extended {
+  --icon-view: url("../images/view-extended-icon.svg");
+}
+
+.view__button--list {
+  --icon-view: url("../images/view-list-icon.svg");
+}
+
+.view__button:hover,
+.view__button:focus-visible:not(.view__button--current) {
+  box-shadow: var(--border-base-2) var(--color-primary-darker);
+  outline: none;
+}
+
+.view__button:hover::before,
+.view__button:focus-visible:not(.view__button--current)::before {
+  background-color: var(--color-primary-darker);
+}
+
+.view__button:active {
+  box-shadow: var(--border-base-2) var(--color-dark);
+}
+
+.view__button:active::before {
+  background-color: var(--color-dark);
+}
+
+.view__button--current {
+  box-shadow: var(--border-base-2) var(--color-dark);
+  outline: none;
 }
 
 /* catalog — cards */
