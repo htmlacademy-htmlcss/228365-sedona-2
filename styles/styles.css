@@ -150,8 +150,15 @@ svg::selection {
 
 *:focus-visible {
   outline: 3px solid var(--color-primary);
-  outline-offset: 0.25em;
   border-radius: 0.13em;
+}
+
+/* Fallback для браузеров без поддержки :focus-visible */
+@supports not selector(:focus-visible) {
+  *:focus {
+    outline: 3px solid var(--color-primary);
+    border-radius: 0.13em;
+  }
 }
 
 body {
@@ -180,7 +187,7 @@ body {
   border-radius: var(--border-radius-4);
   user-select: none;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, opacity 0.3s, border 0.3s, outline 0.3s;
+  transition: background-color 0.3s, color 0.3s, opacity 0.3s, border 0.3s;
 }
 
 .button--primary {
@@ -188,7 +195,7 @@ body {
 }
 
 .button--primary:hover,
-.button--primary:focus-visible {
+.button--primary:not([class*="--current"], .active):focus-visible {
   background-color: var(--color-primary-darker);
 }
 
@@ -285,6 +292,12 @@ body {
   border: none;
   background-color: var(--color-light-secondary);
   caret-color: var(--color-primary-darker);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.input:hover,
+.input:focus-visible {
+  background-color: var(--color-light-tertiary);
 }
 
 .input::placeholder {
