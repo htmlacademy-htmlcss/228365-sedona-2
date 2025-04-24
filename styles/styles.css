@@ -216,14 +216,14 @@ body {
   background-color: var(--color-secondary);
 }
 
+.button:not(:disabled):active {
+  color: var(--color-light-30);
+}
+
 .button:disabled {
   background-color: var(--color-light-tertiary);
   outline: none;
   cursor: not-allowed;
-}
-
-.button:not(:disabled):active {
-  color: var(--color-light-30);
 }
 
 .button--big {
@@ -234,6 +234,20 @@ body {
 .button--small {
   font-size: 16px;
   line-height: 1.25;
+}
+
+.button[type="reset"]:hover,
+.button[type="reset"]:focus-visible {
+  color: var(--color-light-60);
+}
+
+.button[type="reset"]:active {
+  color: var(--color-light-30);
+}
+
+.button[type="reset"]:disabled {
+  background-color: transparent;
+  color: var(--color-light-10);
 }
 
 [class*="--current"] {
@@ -715,6 +729,46 @@ body {
   font-size: 20px;
   line-height: 1.2;
   text-transform: capitalize;
+}
+
+/* filter — controls */
+.filter__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px 0;
+}
+
+.control {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  height: 23px;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.control__input {
+  appearance: none;
+  display: grid;
+  place-content: center;
+  margin: 0;
+  width: 20px;
+  aspect-ratio: 1;
+  background-color: var(--color-light);
+  cursor: inherit;
+  border-radius: var(--border-radius-4);
+}
+
+.control__input[type="checkbox"]:checked::after {
+  width: 13px;
+  height: 12px;
+  margin-left: 2.5px;
+  mask-image: url("../images/check-mark.svg");
+  mask-size: auto;
+  mask-repeat: no-repeat;
+  mask-position: bottom;
+  background-color: var(--color-tertiary);
+  content: "";
 }
 
 /* filter — price scale */
