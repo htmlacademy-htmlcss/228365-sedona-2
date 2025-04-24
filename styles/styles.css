@@ -1032,6 +1032,12 @@ body {
   text-transform: capitalize;
 }
 
+.catalog__link::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+}
+
 .catalog__type {
   grid-area: type;
 }
@@ -1045,15 +1051,8 @@ body {
   grid-area: button;
 }
 
-.catalog__button[href]::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-}
-
 .catalog__button[type="button"] {
   grid-area: second-button;
-  position: relative;
 }
 
 .catalog__stars {
@@ -1064,7 +1063,6 @@ body {
   mask-size: contain;
   mask-repeat: repeat-x;
   background-color: var(--color-primary);
-  position: relative;
 }
 
 .catalog__stars--5 {
@@ -1095,6 +1093,9 @@ body {
   font-weight: inherit;
   background-color: var(--color-light-secondary);
   cursor: default;
+}
+
+.catalog__item > *:not(.catalog__title, .catalog__image) {
   position: relative;
 }
 
