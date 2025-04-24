@@ -286,7 +286,7 @@ body {
   line-height: 1.18;
 }
 
-/* inputs */
+/* inputs ———————————————*/
 .input {
   line-height: 1.33;
   border: none;
@@ -1073,6 +1073,10 @@ body {
 .subscribe__input {
   padding: 14px 20px;
   border-radius: var(--border-radius-4) 0 0 var(--border-radius-4);
+}
+
+.subscribe__input:not(:placeholder-shown) {
+  background-color: var(--color-light);
 }
 
 .subscribe__button {
