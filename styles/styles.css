@@ -745,6 +745,20 @@ body {
   height: 23px;
   gap: 16px;
   cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.control:hover {
+  opacity: 0.6;
+}
+
+.control:active {
+  opacity: 0.3;
+}
+
+.control:has(.control__input:disabled) {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 .control__input {
@@ -769,6 +783,22 @@ body {
   mask-position: bottom;
   background-color: var(--color-tertiary);
   content: "";
+}
+
+.control__input[type="radio"] {
+  border-radius: var(--border-radius-circle);
+}
+
+.control__input[type="radio"]:checked::after {
+  width: 10px;
+  aspect-ratio: 1;
+  border-radius: inherit;
+  background-color: var(--color-tertiary);
+  content: "";
+}
+
+.control__label {
+  line-height: 1.278;
 }
 
 /* filter — price scale */
