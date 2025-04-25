@@ -54,6 +54,7 @@
   --color-accent-darker: hsl(from var(--color-accent) h s 44%);
 
   --color-accent-secondary: #ff5757;
+  --color-accent-secondary-light: hsl(from var(--color-accent-secondary) h s 94%);
 
   /* shadows */
   --shadow-y4-blur10: 0 4px 10px 0 var(--color-dark-25);
@@ -322,6 +323,12 @@ body {
   background-color: var(--color-light-secondary);
   color: var(--color-dark-60);
   cursor: not-allowed;
+}
+
+.input:not(:placeholder-shown):user-invalid,
+.input:not(:placeholder-shown):focus-visible:user-invalid {
+  background-color: var(--color-accent-secondary-light);
+  outline: 3px solid var(--color-accent-secondary);
 }
 
 /* page wrapper */
@@ -1153,15 +1160,57 @@ body {
   max-width: 684px;
   width: 100%;
   margin: 0 auto;
+  position: relative;
 }
 
 .subscribe__input {
   padding: 14px 20px;
   border-radius: var(--border-radius-4) 0 0 var(--border-radius-4);
+  /* line-height: 0.9; */
+}
+
+.subscribe__label {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  color: var(--color-dark-60);
+  user-select: none;
+  pointer-events: none;
+  transform-origin: top left;
+  transition-property: color, scale, translate;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.2s;
+}
+
+.subscribe__error-message {
+  display: none;
+  position: absolute;
+  top: 4px;
+  left: 20px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  color: var(--color-accent-secondary);
+  user-select: none;
+  pointer-events: none;
+}
+
+.subscribe__input:not(:placeholder-shown) + .subscribe__label {
+  scale: 0.8;
+  translate: 0 -10px;
+  letter-spacing: 0.5px;
 }
 
 .subscribe__input:not(:placeholder-shown) {
   background-color: var(--color-light);
+  padding-block: 17px 0;
+}
+
+.subscribe__input:not(:placeholder-shown):user-invalid ~ .subscribe__error-message {
+  display: block;
+}
+
+.subscribe__input:not(:placeholder-shown):user-invalid ~ .subscribe__label {
+  display: none;
 }
 
 .subscribe__button {

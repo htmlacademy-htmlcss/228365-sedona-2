@@ -132,8 +132,9 @@
           <h2 class="title title--h2">Подпишитесь на рассылку</h2>
           <p class="description">Только полезная информация и никакого спама, <br>честное бойскаутское!</p>
           <form class="subscribe__form" action="https://echo.htmlacademy.ru/" method="post">
-            <label class="subscribe__label visually-hidden" for="email">Введите вашу электронную почту</label>
-            <input class="subscribe__input input" type="email" name="email" id="email" placeholder="Ваш e-mail" autocomplete="email" required>
+            <input class="subscribe__input input" type="email" name="email" id="email" placeholder="" autocomplete="email" required>
+            <label class="subscribe__label" for="email">Ваш e-mail</label>
+            <span class="subscribe__error-message">Пожалуйста, введите корректный e-mail</span>
             <button class="subscribe__button button button--primary button--big" type="submit">Подписаться</button>
           </form>
         </section>
