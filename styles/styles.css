@@ -856,6 +856,111 @@ body {
   z-index: 2;
 }
 
+/* filter price range scale */
+.range-scale {
+  height: 5px;
+  background-color: var(--color-light-30);
+  position: relative;
+}
+
+.progress {
+  inset: 0;
+  position: absolute;
+  background-color: var(--color-light);
+}
+
+.range-scale__range {
+  position: absolute;
+  appearance: none;
+  height: 5px;
+  bottom: 50%;
+  transform: translateY(50%);
+  width: 100%;
+  background: none;
+  pointer-events: none;
+  margin: 0;
+  outline: none;
+  z-index: 10;
+}
+
+/* WebKit */
+.range-scale__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-light);
+  border-radius: var(--border-radius-4);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, background 0.2s ease;
+}
+
+/* Firefox */
+.range-scale__range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-light);
+  border-radius: var(--border-radius-4);
+  pointer-events: auto;
+  cursor: pointer;
+  border: none;
+  transition: box-shadow 0.2s ease, background 0.2s ease;
+}
+
+/* Старый Edge (EdgeHTML) */
+.range-scale__range::-ms-thumb {
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-light);
+  border-radius: var(--border-radius-4);
+  pointer-events: auto;
+  cursor: pointer;
+  border: none;
+  transition: box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.range-scale__range:hover::-webkit-slider-thumb {
+  box-shadow: var(--shadow-y4-blur10);
+}
+
+.range-scale__range:hover::-moz-range-thumb {
+  box-shadow: var(--shadow-y4-blur10);
+}
+
+.range-scale__range:hover::-ms-thumb {
+  box-shadow: var(--shadow-y4-blur10);
+}
+
+.range-scale__range:focus-visible::-webkit-slider-thumb {
+  outline: 3px solid var(--color-primary);
+  box-shadow: var(--shadow-y4-blur10);
+}
+
+.range-scale__range:focus-visible::-moz-range-thumb {
+  outline: 3px solid var(--color-primary);
+  box-shadow: var(--shadow-y4-blur10);
+}
+
+.range-scale__range:focus-visible::-ms-thumb {
+  outline: 3px solid var(--color-primary);
+  box-shadow: var(--shadow-y4-blur10);
+}
+
+.range-scale__range:active::-webkit-slider-thumb {
+  outline: 2px solid var(--color-primary);
+  box-shadow: var(--shadow-y7-blur15);
+}
+
+.range-scale__range:active::-moz-range-thumb {
+  outline: 2px solid var(--color-primary);
+  box-shadow: var(--shadow-y7-blur15);
+}
+
+.range-scale__range:active::-ms-thumb {
+  outline: 2px solid var(--color-primary);
+  box-shadow: var(--shadow-y7-blur15);
+}
+
 /* filter — form buttons */
 .filter__buttons {
   justify-content: end;
