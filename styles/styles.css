@@ -1608,6 +1608,7 @@ html:has(.modal:popover-open) {
 
 .modal__input[type="number"] {
   text-align: center;
+  align-content: center;
   padding-inline: 0;
   margin-inline: 5px;
   z-index: 10;
