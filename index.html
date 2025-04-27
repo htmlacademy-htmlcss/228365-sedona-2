@@ -8,7 +8,8 @@
     <meta name="description" content="Добро пожаловать в Седону">
     <link rel="preload" as="font" href="../fonts/ptsans-700.woff2" type="font/woff2" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/styles.css">
-    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" sizes="16x16">
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" sizes="any">
   </head>
 
   <body>
@@ -124,7 +125,7 @@
           <h2 class="visually-hidden">Поиск гостиницы в Седоне</h2>
           <p class="title title--h2">Заинтересовались?</p>
           <p class="description">Укажите предполагаемые даты поездки, <br>и мы покажем вам лучшие предложения гостиниц в Седоне</p>
-          <a class="search__button button button--secondary button--big" href="#">Поиск гостиницы в Седоне</a>
+          <button class="search__button button button--secondary button--big" type="button" aria-controls="modal" popovertarget="modal" aria-expanded="false">Поиск гостиницы в Седоне</button>
         </section>
 
         <!-- subscribe -->
@@ -168,6 +169,50 @@
       </footer>
     </div>
 
+    <!-- modal -->
+    <section class="modal" id="modal" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title" popover>
+      <h2 class="modal__title title title--h2" id="modal-title">Поиск гостиницы в седоне</h2>
+      <button class="modal__close-button button" type="button" aria-label="Закрыть окно" aria-controls="modal" popovertarget="modal" popovertargetaction="hide"></button>
+      <form class="modal__form" action="https://echo.htmlacademy.ru/" method="post">
+        <label class="modal__label" for="date-checkin">Дата заезда:</label>
+        <div class="modal__input-wrapper">
+          <input class="modal__input input" type="text" name="date-checkin" id="date-checkin" placeholder="Укажите дату" required>
+          <span class="modal__message error">Мы не можем отправить вас в прошлое.</span>
+        </div>
+        <label class="modal__label" for="date-checkout">Дата выезда:</label>
+        <div class="modal__input-wrapper">
+          <input class="modal__input input" type="text" name="date-checkout" id="date-checkout" placeholder="Укажите дату" required>
+          <span class="modal__message">На эти даты есть свободные номера. Пока есть.</span>
+        </div>
+        <label class="modal__label" for="adults">Взрослые:</label>
+        <div class="modal__controls">
+          <button class="modal__control button modal__control--minus" type="button">
+            <span class="visually-hidden">Убрать</span>
+          </button>
+          <input class="modal__input input number-field" type="number" id="adults" name="adults" value="1" min="1" max="100">
+          <button class="modal__control button modal__control--plus" type="button">
+            <span class="visually-hidden">Добавить</span>
+          </button>
+        </div>
+        <div class="modal__label-wrapper">
+          <label class="modal__label" for="children">Дети:</label>
+          <div class="tooltip">
+            <button class="tooltip__button button button--primary" type="button" aria-labelledby="tooltip-text"></button>
+            <span class="tooltip__text" id="tooltip-text">Укажите количество детей, которые будут с вами, возраст которых от 6 до 18 лет. Дети до 6 лет размещаются бесплатно.</span>
+          </div>
+        </div>
+        <div class="modal__controls">
+          <button class="modal__control button modal__control--minus" type="button">
+            <span class="visually-hidden">Убрать</span>
+          </button>
+          <input class="modal__input input" type="number" id="children" name="children" value="0" min="0" max="100">
+          <button class="modal__control button modal__control--plus" type="button">
+            <span class="visually-hidden">Добавить</span>
+          </button>
+        </div>
+        <button class="modal__button button button--primary button--big" type="submit">Найти</button>
+      </form>
+    </section>
   </body>
 
 </html>
