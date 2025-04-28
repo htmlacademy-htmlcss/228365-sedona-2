@@ -872,8 +872,8 @@ body {
 }
 
 .range-scale__range {
-  position: absolute;
   appearance: none;
+  position: absolute;
   height: 5px;
   bottom: 50%;
   transform: translateY(50%);
@@ -885,13 +885,25 @@ body {
   z-index: 10;
 }
 
+.range-scale__range::-webkit-slider-runnable-track {
+  height: 5px;
+  background-color: var(--color-light-30);
+}
+
+.range-scale__range::-moz-range-track {
+  height: 5px;
+  background-color: var(--color-light-30);
+}
+
 /* WebKit */
 .range-scale__range::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 20px;
   height: 20px;
+  margin-top: -7.5px;
   background-color: var(--color-light);
   border-radius: var(--border-radius-4);
+  border: none;
   pointer-events: auto;
   cursor: pointer;
   transition: box-shadow 0.2s ease, background 0.2s ease;
@@ -901,6 +913,7 @@ body {
 .range-scale__range::-moz-range-thumb {
   width: 20px;
   height: 20px;
+  margin-top: 0;
   background-color: var(--color-light);
   border-radius: var(--border-radius-4);
   pointer-events: auto;
