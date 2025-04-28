@@ -1660,7 +1660,6 @@ html:has(.modal:popover-open) {
 
 .tooltip__text {
   position: absolute;
-  display: none;
   top: calc(100% + 15px);
   left: 50%;
   transform: translateX(-50%);
@@ -1673,6 +1672,9 @@ html:has(.modal:popover-open) {
   color: var(--color-light);
   background-color: var(--color-dark-secondary);
   border-radius: 10px;
+  transform-origin: 0 -12%;
+  scale: 0;
+  transition: scale 0.3s;
 }
 
 .tooltip__text::before {
@@ -1688,7 +1690,7 @@ html:has(.modal:popover-open) {
 
 .tooltip__button:hover ~ .tooltip__text,
 .tooltip__button:focus-visible ~ .tooltip__text {
-  display: block;
+  scale: 1;
 }
 
 .modal__button {
