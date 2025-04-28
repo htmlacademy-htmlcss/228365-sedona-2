@@ -1552,6 +1552,7 @@ html:has(.modal:popover-open) {
 }
 
 .modal__input {
+  min-height: 48px;
   padding-block: 12px;
   font-weight: 700;
 }
@@ -1651,14 +1652,6 @@ html:has(.modal:popover-open) {
 
 .tooltip {
   position: relative;
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
-  /* padding: 0; */
-  /* margin-inline-start: auto; */
-  /* margin-inline-end: auto; */
-  /* min-width: 26px; */
-  /* height: 26px; */
 }
 
 .tooltip__button {
