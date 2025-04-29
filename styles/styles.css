@@ -1259,7 +1259,7 @@ body {
 }
 
 .subscribe__input:not(:placeholder-shown) {
-  background-color: var(--color-light);
+  background-color: var(--color-light-secondary);
   padding-block: 17px 0;
 }
 
