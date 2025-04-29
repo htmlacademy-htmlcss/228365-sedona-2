@@ -378,7 +378,15 @@ body {
 .navigation__list {
   display: flex;
   align-items: center;
+  align-self: start;
+  flex-wrap: wrap;
   margin: 0;
+}
+
+.navigation__list--right {
+  justify-content: flex-end;
+  min-width: max-content;
+  flex: 0 0 auto;
 }
 
 .navigation__link {
