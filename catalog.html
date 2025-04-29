@@ -144,10 +144,15 @@
                 </div>
 
                 <!-- price range scale -->
-                <div class="filter__range-scale range-scale">
-                  <input class="range-scale__range range-min" type="range" min="0" max="9000" value="0">
-                  <input class="range-scale__range range-max" type="range" min="0" max="9000" value="9000">
-                  <div class="progress"></div>
+                <div class="range-scale">
+                  <div class="range-scale__progress">
+                    <button class="range-scale__button button" type="button" role="slider" aria-describedby="min-price" aria-controls="min-price" aria-valuenow="0" aria-valuemin="0" aria-valuemax="9000">
+                      <span class="visually-hidden">Изменить минимальную цену</span>
+                    </button>
+                    <button class="range-scale__button button" type="button" role="slider" aria-describedby="max-price" aria-controls="max-price" aria-valuenow="9000" aria-valuemin="0" aria-valuemax="9000">
+                      <span class="visually-hidden">Изменить максимальную цену</span>
+                    </button>
+                  </div>
                 </div>
               </fieldset>
 

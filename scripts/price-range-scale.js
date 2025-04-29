@@ -1,296 +1,185 @@
 'use strict';
 
-const MAX_PRICE = 9000;
-const MIN_DIFFERENCE = 10;
-const INPUT_DELAY = 500;
+// Получаем все необходимые элементы
+const minPriceInput = document.getElementById('min-price');
+const maxPriceInput = document.getElementById('max-price');
+const minSlider = document.querySelector('.range-scale__button[aria-controls="min-price"]');
+const maxSlider = document.querySelector('.range-scale__button[aria-controls="max-price"]');
+const rangeBar = document.querySelector('.range-scale__progress');
+const rangeContainer = document.querySelector('.range-scale');
 
-// Динамические шаги
-const STEP_SMALL = 10; // Шаг для значений до 500
-const STEP_LARGE = 50; // Шаг для значений выше 500
-const STEP_THRESHOLD = 500; // Порог для смены шага
+// Устанавливаем минимальные и максимальные значения
+const minValue = 0;
+const maxValue = 11500;
+const minGap = 100; // Минимальный разрыв между значениями
+const step = 100; // Шаг изменения при управлении клавиатурой
 
-// Элементы DOM
-const rangeMin = document.querySelector('.range-min');
-const rangeMax = document.querySelector('.range-max');
-const minPriceInput = document.querySelector('#min-price');
-const maxPriceInput = document.querySelector('#max-price');
-const progress = document.querySelector('.progress');
+// Функция для обновления позиции полосы
+function updateRange() {
+  let minVal = parseInt(minPriceInput.value) || minValue;
+  let maxVal = parseInt(maxPriceInput.value) || maxValue;
 
-// Таймеры
-let minPriceTimeout;
-let maxPriceTimeout;
+  // Применяем минимальный разрыв и границы
+  minVal = Math.max(minValue, Math.min(minVal, maxVal - minGap));
+  maxVal = Math.min(maxValue, Math.max(maxVal, minVal + minGap));
 
-// Получение динамического шага в зависимости от значения
-function getDynamicStep(value) {
-  return value < STEP_THRESHOLD ? STEP_SMALL : STEP_LARGE;
+  // Обновляем значения в инпутах только если они изменились
+  if (parseInt(minPriceInput.value) !== minVal) minPriceInput.value = minVal;
+  if (parseInt(maxPriceInput.value) !== maxVal) maxPriceInput.value = maxVal;
+
+  // Обновляем ARIA атрибуты
+  minSlider.setAttribute('aria-valuenow', minVal);
+  maxSlider.setAttribute('aria-valuenow', maxVal);
+
+  // Вычисляем позиции в процентах
+  const minPercent = ((minVal - minValue) / (maxValue - minValue)) * 100;
+  const maxPercent = ((maxVal - minValue) / (maxValue - minValue)) * 100;
+
+  // Обновляем позицию полосы (rangeBar)
+  rangeBar.style.left = `calc(${minPercent}% + 10px)`;
+  rangeBar.style.width = `calc(${maxPercent - minPercent}% - 20px)`;
 }
 
-// Округление значения до ближайшего шага
-function roundToStep(value, step) {
-  return Math.round(value / step) * step;
-}
+// Функция для обработки перетаскивания ползунка
+function startDragging(event) {
+  const slider = event.target.closest('.range-scale__button');
+  if (!slider) return;
 
-// Обновление слайдера
-function updateSlider(event) {
-  let minVal = parseInt(rangeMin.value);
-  let maxVal = parseInt(rangeMax.value);
+  const isMinSlider = slider.getAttribute('aria-controls') === 'min-price';
+  const rect = rangeContainer.getBoundingClientRect();
 
-  // Если это событие от клавиатуры, корректируем значение с учетом динамического шага
-  if (event && (event.type === 'keydown' || event.type === 'input')) {
-    const isMinSlider = this === rangeMin;
-    const currentVal = isMinSlider ? minVal : maxVal;
-    const step = getDynamicStep(currentVal);
-    const roundedVal = roundToStep(currentVal, step);
+  function onMouseMove(e) {
+    const position = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+    const percent = (position / rect.width) * (maxValue - minValue);
+    const value = Math.round(percent) + minValue;
 
     if (isMinSlider) {
-      minVal = roundedVal;
-      rangeMin.value = minVal;
+      minPriceInput.value = value;
     } else {
-      maxVal = roundedVal;
-      rangeMax.value = maxVal;
+      maxPriceInput.value = value;
     }
+
+    updateRange();
   }
 
-  // Проверка минимального разрыва
-  if (maxVal - minVal < MIN_DIFFERENCE) {
-    if (this === rangeMin) {
-      rangeMin.value = maxVal - MIN_DIFFERENCE;
-      minVal = rangeMin.value;
-    } else {
-      rangeMax.value = minVal + MIN_DIFFERENCE;
-      maxVal = rangeMax.value;
-    }
+  function onMouseUp() {
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
   }
 
-  minPriceInput.value = minVal;
-  maxPriceInput.value = maxVal;
-  updateProgressBar(minVal, maxVal);
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
 }
 
-// Валидация цен с учетом динамического шага
-function validatePrice(min, max, isMinInput) {
-  let newMin = Math.max(0, Math.min(min, MAX_PRICE));
-  let newMax = Math.max(0, Math.min(max, MAX_PRICE));
-
-  // Округляем значения до ближайшего шага
-  newMin = roundToStep(newMin, getDynamicStep(newMin));
-  newMax = roundToStep(newMax, getDynamicStep(newMax));
-
-  if (isMinInput) {
-    if (newMax - newMin < MIN_DIFFERENCE) {
-      newMax = Math.min(MAX_PRICE, newMin + MIN_DIFFERENCE);
-      newMax = roundToStep(newMax, getDynamicStep(newMax));
-    }
-  } else {
-    if (newMax - newMin < MIN_DIFFERENCE) {
-      newMin = Math.max(0, newMax - MIN_DIFFERENCE);
-      newMin = roundToStep(newMin, getDynamicStep(newMin));
-    }
-  }
-
-  return { min: newMin, max: newMax };
-}
-
-// Обновление прогресс-бара
-function updateProgressBar(minVal, maxVal) {
-  const minPercent = (minVal / MAX_PRICE) * 100;
-  const maxPercent = (maxVal / MAX_PRICE) * 100;
-
-  progress.style.left = minPercent + '%';
-  progress.style.right = (100 - maxPercent) + '%';
-}
-
-// Обновление диапазона из полей ввода
-function updateRangeFromInput(event) {
-  clearTimeout(minPriceTimeout);
-  clearTimeout(maxPriceTimeout);
-
-  const isMinPriceInput = event.target === minPriceInput;
-
-  const timeoutFunction = () => {
-    let minVal = parseInt(minPriceInput.value);
-    let maxVal = parseInt(maxPriceInput.value);
-
-    if (isNaN(minVal)) minVal = parseInt(rangeMin.value) || 0;
-    if (isNaN(maxVal)) maxVal = parseInt(rangeMax.value) || MAX_PRICE;
-
-    const validatedPrices = validatePrice(minVal, maxVal, isMinPriceInput);
-    minVal = validatedPrices.min;
-    maxVal = validatedPrices.max;
-
-    minPriceInput.value = minVal;
-    maxPriceInput.value = maxVal;
-    rangeMin.value = minVal;
-    rangeMax.value = maxVal;
-    updateProgressBar(minVal, maxVal);
-  };
-
-  if (event.type === 'input') {
-    if (isMinPriceInput) {
-      minPriceTimeout = setTimeout(timeoutFunction, INPUT_DELAY);
-    } else {
-      maxPriceTimeout = setTimeout(timeoutFunction, INPUT_DELAY);
-    }
-  } else if (event.type === 'change') {
-    timeoutFunction();
-  } else if (event.type === 'keydown') {
-    // Для клавиатурного управления обновляем сразу
-    timeoutFunction();
-  }
-}
-
-// Обработка клавиатурного управления для ползунков
+// Функция для обработки клавиатурного управления
 function handleKeyboard(event) {
-  const isMinSlider = this === rangeMin;
-  let minVal = parseInt(rangeMin.value);
-  let maxVal = parseInt(rangeMax.value);
-  const currentVal = isMinSlider ? minVal : maxVal;
-  const step = getDynamicStep(currentVal);
+  const slider = event.target.closest('.range-scale__button');
+  if (!slider) return;
 
+  const isMinSlider = slider.getAttribute('aria-controls') === 'min-price';
+  let minVal = parseInt(minPriceInput.value) || minValue;
+  let maxVal = parseInt(maxPriceInput.value) || maxValue;
+
+  // Определяем направление изменения
   let newValue;
   switch (event.key) {
     case 'ArrowLeft':
-    case 'ArrowDown':
-      newValue = currentVal - step;
+      newValue = (isMinSlider ? minVal : maxVal) - step;
       break;
     case 'ArrowRight':
-    case 'ArrowUp':
-      newValue = currentVal + step;
+      newValue = (isMinSlider ? minVal : maxVal) + step;
       break;
     default:
-      return;
+      return; // Игнорируем другие клавиши
   }
 
+  // Применяем новое значение с учетом границ и минимального разрыва
   if (isMinSlider) {
-    minVal = Math.max(0, Math.min(newValue, maxVal - MIN_DIFFERENCE));
-    rangeMin.value = minVal;
+    minVal = Math.max(minValue, Math.min(newValue, maxVal - minGap));
+    minPriceInput.value = minVal;
   } else {
-    maxVal = Math.min(MAX_PRICE, Math.max(newValue, minVal + MIN_DIFFERENCE));
-    rangeMax.value = maxVal;
+    maxVal = Math.min(maxValue, Math.max(newValue, minVal + minGap));
+    maxPriceInput.value = maxVal;
   }
 
-  updateSlider.call(this, event);
-  event.preventDefault();
+  updateRange();
+  event.preventDefault(); // Предотвращаем прокрутку страницы стрелками
 }
 
-// Обработка клавиатурного управления для полей ввода
-function handleInputKeyboard(event) {
-  const isMinInput = this === minPriceInput;
-  let minVal = parseInt(minPriceInput.value);
-  let maxVal = parseInt(maxPriceInput.value);
+// Обработка ввода в поля
+function handleInput(event) {
+  const input = event.target;
+  const currentValue = input.value;
 
-  // Если значения не определены, берём текущие значения слайдера
-  if (isNaN(minVal)) minVal = parseInt(rangeMin.value) || 0;
-  if (isNaN(maxVal)) maxVal = parseInt(rangeMax.value) || MAX_PRICE;
+  // Если поле пустое, просто обновляем слайдер с текущими значениями
+  if (currentValue === '') {
+    let minVal = parseInt(minPriceInput.value) || minValue;
+    let maxVal = parseInt(maxPriceInput.value) || maxValue;
 
-  const currentVal = isMinInput ? minVal : maxVal;
-  const step = getDynamicStep(currentVal);
+    // Обновляем ARIA атрибуты
+    minSlider.setAttribute('aria-valuenow', minVal);
+    maxSlider.setAttribute('aria-valuenow', maxVal);
 
-  let newValue;
-  switch (event.key) {
-    case 'ArrowUp':
-      newValue = currentVal + step;
-      break;
-    case 'ArrowDown':
-      newValue = currentVal - step;
-      break;
-    default:
-      return;
+    // Вычисляем позиции в процентах
+    const minPercent = ((minVal - minValue) / (maxValue - minValue)) * 100;
+    const maxPercent = ((maxVal - minValue) / (maxValue - minValue)) * 100;
+
+    // Обновляем позицию полосы
+    rangeBar.style.left = `calc(${minPercent}% + 10px)`;
+    rangeBar.style.width = `calc(${maxPercent - minPercent}% - 20px)`;
+    return;
   }
 
-  if (isMinInput) {
-    minVal = newValue;
-  } else {
-    maxVal = newValue;
+  // Преобразуем значение в число
+  let value = parseInt(currentValue);
+  if (isNaN(value)) {
+    return; // Пропускаем некорректный ввод, чтобы не мешать стиранию
   }
 
-  // Валидируем значения
-  const validatedPrices = validatePrice(minVal, maxVal, isMinInput);
-  minVal = validatedPrices.min;
-  maxVal = validatedPrices.max;
+  // Ограничиваем только основные границы во время ввода
+  value = Math.max(minValue, Math.min(value, maxValue));
+  input.value = value;
 
-  // Обновляем поля и слайдер
-  minPriceInput.value = minVal;
-  maxPriceInput.value = maxVal;
-  rangeMin.value = minVal;
-  rangeMax.value = maxVal;
-  updateProgressBar(minVal, maxVal);
+  // Обновляем слайдер сразу
+  let minVal = parseInt(minPriceInput.value) || minValue;
+  let maxVal = parseInt(maxPriceInput.value) || maxValue;
 
-  event.preventDefault();
+  // Обновляем ARIA атрибуты
+  minSlider.setAttribute('aria-valuenow', minVal);
+  maxSlider.setAttribute('aria-valuenow', maxVal);
+
+  // Вычисляем позиции в процентах
+  const minPercent = ((minVal - minValue) / (maxValue - minValue)) * 100;
+  const maxPercent = ((maxVal - minValue) / (maxValue - minValue)) * 100;
+
+  // Обновляем позицию полосы
+  rangeBar.style.left = `calc(${minPercent}% + 10px)`;
+  rangeBar.style.width = `calc(${maxPercent - minPercent}% - 20px)`;
 }
 
-// Инициализация событий
-function initEvents() {
-  // События для мыши
-  rangeMin.addEventListener('input', updateSlider.bind(rangeMin));
-  rangeMax.addEventListener('input', updateSlider.bind(rangeMax));
+// Обработка ухода из поля (blur)
+function handleBlur(event) {
+  const input = event.target;
+  let value = parseInt(input.value);
 
-  // События для тач-устройств
-  rangeMin.addEventListener('touchstart', handleTouchStart.bind(rangeMin), { passive: false });
-  rangeMax.addEventListener('touchstart', handleTouchStart.bind(rangeMax), { passive: false });
-
-  // Клавиатурное управление для ползунков
-  rangeMin.addEventListener('keydown', handleKeyboard.bind(rangeMin));
-  rangeMax.addEventListener('keydown', handleKeyboard.bind(rangeMax));
-
-  // Клавиатурное управление для полей ввода
-  minPriceInput.addEventListener('keydown', handleInputKeyboard.bind(minPriceInput));
-  maxPriceInput.addEventListener('keydown', handleInputKeyboard.bind(maxPriceInput));
-
-  // События для полей ввода
-  minPriceInput.addEventListener('input', updateRangeFromInput);
-  maxPriceInput.addEventListener('input', updateRangeFromInput);
-  minPriceInput.addEventListener('change', updateRangeFromInput);
-  maxPriceInput.addEventListener('change', updateRangeFromInput);
-}
-
-// Обработка касания
-function handleTouchStart(event) {
-  event.preventDefault(); // Предотвращаем прокрутку страницы при касании
-
-  const slider = this;
-  const isMinSlider = slider === rangeMin;
-
-  function handleTouchMove(e) {
-    e.preventDefault();
-    const touch = e.touches[0];
-    const rect = slider.parentElement.getBoundingClientRect();
-    const position = Math.max(0, Math.min(touch.clientX - rect.left, rect.width));
-    const percent = (position / rect.width) * MAX_PRICE;
-    let value = Math.round(percent);
-
-    // Округляем значение до ближайшего шага
-    const step = getDynamicStep(value);
-    value = roundToStep(value, step);
-
-    if (isMinSlider) {
-      rangeMin.value = value;
-    } else {
-      rangeMax.value = value;
-    }
-
-    updateSlider.call(slider);
+  // Если поле пустое или содержит некорректное значение, устанавливаем значение по умолчанию
+  if (input.value === '' || isNaN(value)) {
+    input.value = input.id === 'min-price' ? minValue : maxValue;
   }
 
-  function handleTouchEnd() {
-    document.removeEventListener('touchmove', handleTouchMove);
-    document.removeEventListener('touchend', handleTouchEnd);
-  }
-
-  document.addEventListener('touchmove', handleTouchMove, { passive: false });
-  document.addEventListener('touchend', handleTouchEnd);
+  // Применяем минимальный разрыв только после завершения ввода
+  updateRange();
 }
+
+// Добавляем обработчики событий
+minSlider.addEventListener('mousedown', startDragging);
+maxSlider.addEventListener('mousedown', startDragging);
+minSlider.addEventListener('keydown', handleKeyboard);
+maxSlider.addEventListener('keydown', handleKeyboard);
+minPriceInput.addEventListener('input', handleInput);
+maxPriceInput.addEventListener('input', handleInput);
+minPriceInput.addEventListener('blur', handleBlur);
+maxPriceInput.addEventListener('blur', handleBlur);
 
 // Инициализация
-function init() {
-  rangeMin.max = MAX_PRICE;
-  rangeMax.max = MAX_PRICE;
-  rangeMin.value = 0;
-  rangeMax.value = MAX_PRICE;
-  minPriceInput.value = 0;
-  maxPriceInput.value = MAX_PRICE;
-  updateProgressBar(0, MAX_PRICE);
-  initEvents();
-}
-
-document.addEventListener('DOMContentLoaded', init);
+updateRange();
