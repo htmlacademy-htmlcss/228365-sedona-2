@@ -1298,6 +1298,10 @@ body {
   flex-wrap: wrap;
 }
 
+.footer__list {
+  max-width: 240px;
+}
+
 .social__icon {
   display: flex;
   justify-content: center;
