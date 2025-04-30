@@ -909,7 +909,7 @@ body {
 }
 
 .range-scale__button[aria-controls="max-price"] {
-  right: -20px;
+  left: 100%;
 }
 
 .range-scale__button:hover {
