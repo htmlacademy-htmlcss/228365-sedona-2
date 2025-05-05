@@ -1660,6 +1660,11 @@ html:has(.modal:popover-open) {
   grid-column: 1 / -1;
 }
 
+/* 404 page */
+.not-found {
+  margin-block: auto;
+}
+
 /* progress */
 @keyframes grow-progress {
   to {
