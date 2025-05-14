@@ -1,7 +1,7 @@
 # Личный проект «Седона»
 
-* Студент: [Ildar Gnn](https://up.htmlacademy.ru/htmlcss-individual/2/user/228365).
-* Наставник: `Неизвестно`.
+* Студент: [Ildar Gnn](https://htmlacademy.ru/profile/ildar-gn).
+* Наставник: [Ирина Малиновская](https://htmlacademy.ru/profile/irina-malinovskaya).
 
 ---
 
