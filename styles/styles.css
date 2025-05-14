@@ -452,7 +452,6 @@ body {
 
 .navigation__link--search::before,
 .navigation__link--favorite::before {
-  content: "";
   width: 20px;
   aspect-ratio: 1;
   background-color: var(--color-dark);
@@ -460,6 +459,7 @@ body {
   mask-size: contain;
   mask-repeat: no-repeat;
   transition: background-color 0.3s;
+  content: "";
 }
 
 .navigation__link--search:hover::before,
@@ -570,7 +570,6 @@ body {
 }
 
 .advantages__item .title--h3::after {
-  content: "";
   display: block;
   margin-inline: auto;
   margin-top: 30px;
@@ -578,6 +577,7 @@ body {
   height: 2px;
   background-color: currentColor;
   opacity: 0.3;
+  content: "";
 }
 
 .advantages__item:not(.item--wide) {
@@ -614,13 +614,13 @@ body {
 }
 
 .item__icon::before {
-  content: "";
   width: 75px;
   height: 72px;
   background-image: var(--icon-item);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+  content: "";
 }
 
 .item__icon--house {
@@ -732,10 +732,12 @@ body {
 
 .filter__fieldset:nth-child(1) {
   grid-column: 1 / 2;
+  min-width: 151px;
 }
 
 .filter__fieldset:nth-child(2) {
   grid-column: 2 / 3;
+  min-width: 150px;
 }
 
 .filter__fieldset:nth-child(3) {
@@ -762,7 +764,7 @@ body {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
-  height: 23px;
+  min-height: 23px;
   gap: 16px;
   cursor: pointer;
   transition: opacity 0.3s ease-in-out;
@@ -819,6 +821,10 @@ body {
 
 .control__label {
   line-height: 1.278;
+  max-width: 150px;
+  overflow: clip;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
 }
 
 /* filter — price scale */
@@ -895,13 +901,13 @@ body {
 }
 
 .range-scale__button::before {
-  content: "";
   position: absolute;
   width: 50px;
   aspect-ratio: 1;
   bottom: 50%;
   left: 50%;
   transform: translate(-50%, 50%);
+  content: "";
 }
 
 .range-scale__button[aria-controls="min-price"] {
@@ -1318,7 +1324,6 @@ body {
 }
 
 .social__icon::before {
-  content: "";
   min-width: 25px;
   height: 24px;
   background-color: var(--color-primary);
@@ -1327,6 +1332,7 @@ body {
   mask-position: center;
   mask-repeat: no-repeat;
   transition: background-color 0.3s ease-in-out;
+  content: "";
 }
 
 .social__icon:hover::before,
@@ -1376,7 +1382,6 @@ body {
 }
 
 .footer__developer-link::before {
-  content: "";
   width: 100%;
   height: 100%;
   background-color: var(--color-dark);
@@ -1385,6 +1390,7 @@ body {
   mask-position: center;
   mask-repeat: no-repeat;
   transition: background-color 0.3s ease-in-out;
+  content: "";
 }
 
 .footer__developer-link:hover::before,
@@ -1460,7 +1466,6 @@ html:has(.modal:popover-open) {
 }
 
 .modal__close-button::before {
-  content: "";
   width: 14px;
   height: 14px;
   background-color: var(--color-dark);
@@ -1468,6 +1473,7 @@ html:has(.modal:popover-open) {
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: center;
+  content: "";
 }
 
 .modal__close-button:hover,
@@ -1493,11 +1499,15 @@ html:has(.modal:popover-open) {
 
 .modal__message {
   position: absolute;
-  bottom: -25px;
   left: 20px;
   font-size: 16px;
   line-height: 1.312;
   color: var(--color-dark-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   user-select: none;
   pointer-events: none;
 }
@@ -1673,7 +1683,6 @@ html:has(.modal:popover-open) {
 }
 
 .page-wrapper::before {
-  content: "";
   position: fixed;
   top: 0;
   left: 0;
@@ -1681,6 +1690,7 @@ html:has(.modal:popover-open) {
   width: 0;
   background-color: var(--color-primary);
   z-index: 100;
+  content: "";
 
   animation-name: grow-progress;
   animation-timing-function: linear;
