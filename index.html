@@ -8,8 +8,8 @@
     <meta name="description" content="Добро пожаловать в Седону">
     <link rel="preload" as="font" href="fonts/ptsans-700.woff2" type="font/woff2" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/styles.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon" sizes="16x16">
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml" sizes="any">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" sizes="32x32">
   </head>
 
   <body>
@@ -170,7 +170,7 @@
     </div>
 
     <!-- modal -->
-    <section class="modal" id="modal" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title" popover>
+    <div class="modal" id="modal" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title" popover role="dialog">
       <h2 class="modal__title title title--h2" id="modal-title">Поиск гостиницы в седоне</h2>
       <button class="modal__close-button button" type="button" aria-label="Закрыть окно" aria-controls="modal" popovertarget="modal" popovertargetaction="hide"></button>
       <form class="modal__form" action="https://echo.htmlacademy.ru/" method="post">
@@ -212,7 +212,7 @@
         </div>
         <button class="modal__button button button--primary button--big" type="submit">Найти</button>
       </form>
-    </section>
+    </div>
   </body>
 
 </html>
