@@ -2,6 +2,7 @@
 
 * Студент: [Ildar Gnn](https://htmlacademy.ru/profile/ildar-gn).
 * Наставник: [Ирина Малиновская](https://htmlacademy.ru/profile/irina-malinovskaya).
+* Проект: [Сайт «Седона»](https://ildar-gn.github.io/228365-sedona-2/).
 
 ---
 
