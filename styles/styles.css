@@ -1406,50 +1406,65 @@ body {
 }
 
 /* modal —————————————————————————— */
-.modal {
-  max-width: 717px;
-  width: 100%;
-  padding: 64px 70px;
-  background-color: var(--color-light);
-  box-shadow: var(--shadow-y25-blur50);
-  border-radius: 30px;
-  border: none;
-  scale: 0;
-  opacity: 0;
-  transition-property: scale, opacity, display, overlay;
-  transition-duration: 0.4s;
-  transition-timing-function: ease-in-out;
-  transition-behavior: allow-discrete;
-}
-
-html:has(.modal:popover-open) {
+html:has(.modal[open]) {
   overflow: hidden;
   scrollbar-gutter: stable;
   overscroll-behavior: none;
 }
 
-.modal::backdrop {
-  background-color: var(--color-light-secondary-80);
-  -webkit-backdrop-filter: blur(4px) brightness(0.95);
-  backdrop-filter: blur(4px) brightness(0.95);
-  scale: 0;
-  opacity: 0;
+.modal[open] {
+  padding: 0;
+  margin: auto;
+  border: none;
+  overflow: visible;
+  background-color: transparent;
   transition-property: scale, opacity, display, overlay;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
   transition-behavior: allow-discrete;
 }
 
-.modal:popover-open,
-.modal:popover-open::backdrop {
-  scale: 1;
-  opacity: 1;
+.modal[open]::backdrop {
+  -webkit-backdrop-filter: blur(4px) brightness(0.95);
+  backdrop-filter: blur(4px) brightness(0.95);
+  background-color: var(--color-light-secondary-80);
+}
+
+.modal[open] .modal__content {
+  max-width: 717px;
+  width: 100%;
+  padding: 64px 70px;
+  border-radius: 30px;
+  background-color: var(--color-light);
+  box-shadow: var(--shadow-y25-blur50);
+}
+
+.modal[open] .modal__content::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.modal[open] .bg--close {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  appearance: none;
+  font: inherit;
+  border: none;
+  background-color: transparent;
+  color: transparent;
+  cursor: pointer;
+  z-index: -2;
 }
 
 @starting-style {
-  .modal:popover-open {
+  .modal[open] {
     opacity: 0;
-    scale: 0;
+    scale: 2.05;
   }
 }
 
